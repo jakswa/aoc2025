@@ -7,10 +7,10 @@ pub fn part1(input: &str) -> String {
             rot = -rot;
         }
         dial = (dial + rot) % 100;
-        if (dial < 0) {
+        if dial < 0 {
             dial = 100 + dial;
         }
-        if (dial == 0) {
+        if dial == 0 {
             zeros += 1;
         }
     });
@@ -18,8 +18,36 @@ pub fn part1(input: &str) -> String {
 }
 
 pub fn part2(input: &str) -> String {
-    let dial = 50;
-    return "TODO".to_string();
+    let mut dial = 50;
+    let mut zeros = 0;
+    input.lines().for_each(|line| {
+        let start_zero = dial == 0;
+        let mut rot = line[1..].parse::<i64>().expect("valid input?");
+        if &line[0..1] == "L" {
+            rot = -rot;
+        }
+        dial = dial + rot;
+        if dial == 0 {
+            zeros += 1;
+        } else if dial < 0 {
+            zeros += (dial / 100).abs() + 1;
+            if start_zero {
+                zeros -= 1;
+            }
+            dial = dial % 100;
+            if dial < 0 {
+                dial = 100 + dial;
+            }
+        } else if dial > 99 {
+            zeros += dial / 100;
+            if start_zero {
+                zeros -= 1;
+            }
+            dial = dial % 100;
+        }
+        println!("for {} done by {} its {}", dial, rot, zeros);
+    });
+    zeros.to_string()
 }
 
 #[cfg(test)]
@@ -35,6 +63,6 @@ mod tests {
 
     #[test]
     fn test_part2() {
-        assert_eq!(part2(TEST_INPUT), "TODO");
+        assert_eq!(part2(TEST_INPUT), "6");
     }
 }
