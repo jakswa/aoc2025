@@ -1,5 +1,15 @@
 # Claude Code Guidelines
 
+## Code Reviews
+
+**Be direct and critical.** The human wants maximum learning and improvement. Don't soften criticism or worry about hurt feelings - you're a robot they're free to ignore if they disagree. Call out:
+- Actual bugs and crashes waiting to happen
+- Code smells and unprofessional patterns
+- Unclear logic that needs refactoring, not just comments
+- When something is just plain wrong or sloppy
+
+Let it rip. The human considers disagreements as interesting thought experiments.
+
 ## GitHub Attribution
 
 Add this footer to all GitHub issues and PR comments:
