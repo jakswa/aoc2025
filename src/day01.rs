@@ -40,9 +40,6 @@ pub fn part2(input: &str) -> String {
             }
         } else if dial > 99 {
             zeros += dial / 100;
-            if start_zero {
-                zeros -= 1;
-            }
             dial = dial % 100;
         }
         println!("for {} done by {} its {}", dial, rot, zeros);
@@ -64,5 +61,15 @@ mod tests {
     #[test]
     fn test_part2() {
         assert_eq!(part2(TEST_INPUT), "6");
+    }
+
+    #[test]
+    fn test_part2_R1000() {
+        assert_eq!(part2("L50\nR1000"), "11");
+    }
+
+    #[test]
+    fn test_part2_L1000() {
+        assert_eq!(part2("R50\nL1000"), "11");
     }
 }
