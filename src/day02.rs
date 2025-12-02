@@ -30,9 +30,13 @@ pub fn part2(input: &str) -> String {
     filter_ids(input, |id| {
         let id_str = id.to_string();
         let len = id_str.len();
-        if (1..=(len / 2))
-            .any(|sub_ind| id_str.split(&id_str[0..sub_ind]).collect::<String>() == "")
-        {
+        if (1..=(len / 2)).any(|sub_len| {
+            len % sub_len == 0
+                && id_str
+                    .as_bytes()
+                    .chunks(sub_len)
+                    .all(|chunk| chunk == &id_str.as_bytes()[..sub_len])
+        }) {
             return Some(id);
         }
         None
