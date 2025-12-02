@@ -1,6 +1,12 @@
 use std::fs;
 
+#[cfg(feature = "dhat")]
+#[global_allocator]
+static ALLOC: dhat::Alloc = dhat::Alloc;
+
 fn main() {
+    #[cfg(feature = "dhat")]
+    let _profiler = dhat::Profiler::new_heap();
     let args: Vec<String> = std::env::args().collect();
 
     if args.len() < 2 {
