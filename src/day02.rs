@@ -18,10 +18,7 @@ pub fn part1(input: &str) -> String {
     filter_ids(input, |id| {
         let id_str = id.to_string();
         let len = id_str.len();
-        if len % 2 == 0 && id_str[0..len / 2] == id_str[len / 2..len] {
-            return Some(id);
-        }
-        None
+        (len % 2 == 0 && id_str[0..len / 2] == id_str[len / 2..len]).then_some(id)
     })
     .to_string()
 }
@@ -30,16 +27,14 @@ pub fn part2(input: &str) -> String {
     filter_ids(input, |id| {
         let id_str = id.to_string();
         let len = id_str.len();
-        if (1..=(len / 2)).any(|sub_len| {
+        ((1..=(len / 2)).any(|sub_len| {
             len % sub_len == 0
                 && id_str
                     .as_bytes()
                     .chunks(sub_len)
                     .all(|chunk| chunk == &id_str.as_bytes()[..sub_len])
-        }) {
-            return Some(id);
-        }
-        None
+        }))
+        .then_some(id)
     })
     .to_string()
 }
